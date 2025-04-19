@@ -1,4 +1,3 @@
-
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/database');
 const bcrypt = require('bcrypt');
@@ -27,7 +26,7 @@ const User = sequelize.define('User', {
   },
   role: {
     type: DataTypes.STRING,
-    defaultValue: 'client'
+    defaultValue: 'usuario'
   },
   bio: {
     type: DataTypes.TEXT,
@@ -71,12 +70,10 @@ const User = sequelize.define('User', {
   }
 });
 
-// Método para comparar contraseñas
 User.prototype.comparePassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };
 
-// Método para formatear usuario para respuesta JSON (excluir password)
 User.prototype.toJSON = function () {
   const values = { ...this.get() };
   delete values.password;

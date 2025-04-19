@@ -1,4 +1,3 @@
-
 const { Job, User, Comment, Reply } = require('../models');
 const { Op } = require('sequelize');
 
@@ -11,14 +10,6 @@ exports.createJob = async (req, res) => {
     const userId = req.user.id;
     
     console.log('Creating job with data:', { title, description, budget, category, skills, userId });
-    
-    // Verificar que el usuario es un cliente
-    if (req.user.role !== 'client') {
-      return res.status(403).json({
-        success: false,
-        message: 'Solo los clientes pueden publicar trabajos'
-      });
-    }
     
     // Validar datos requeridos
     if (!title || !description || !budget || !category) {
